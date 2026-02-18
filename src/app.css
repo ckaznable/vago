@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Cubic 11';
+  src: url('/Cubic_11.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'I.Ming';
+  src: url('/I.Ming-8.10.ttf') format('truetype');
+}
+
+@theme {
+  --color-bg: #0D0F0E;
+  --color-primary: #A8BBA2;
+  --color-secondary: #555B53;
+  --color-accent: #C45A5A;
+
+  --font-pixel: "Cubic 11", "Courier New", Courier, monospace;
+  --font-serif: "I.Ming", "TW-Sung", serif;
+}
+
+:root {
+  --bg-color: #0D0F0E;
+  --text-primary: #A8BBA2;
+  --text-secondary: #555B53;
+  --accent-color: #C45A5A;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  margin: 0;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+.pixel-text {
+  font-family: var(--font-pixel);
+  -webkit-font-smoothing: none;
+  image-rendering: pixelated;
+  text-transform: uppercase;
+}
+
+.serif-text {
+  font-family: var(--font-serif);
+  opacity: 0.8;
+  line-height: 2.0;
+  letter-spacing: 0.05em;
+}
+
+/* CRT Scanlines */
+.crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%,
+      rgba(0, 0, 0, 0.1) 50%),
+    linear-gradient(90deg,
+      rgba(255, 0, 0, 0.02),
+      rgba(0, 255, 0, 0.01),
+      rgba(0, 0, 255, 0.02));
+  background-size: 100% 4px, 3px 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes scanline-anim {
+  0% {
+    top: -20%;
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 0.1;
+  }
+
+  50% {
+    top: 120%;
+    opacity: 0;
+  }
+
+  100% {
+    top: 120%;
+    opacity: 0;
+  }
+}
+
+/* CRT Rolling Scanline (Refresh) */
+.crt-overlay::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  background: linear-gradient(to bottom,
+      transparent,
+      rgba(255, 255, 255, 0.03) 50%,
+      transparent);
+  animation: scanline-anim 8s linear infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Pulse Animation */
+@keyframes vago-pulse {
+  0% {
+    opacity: 0.98;
+  }
+
+  5% {
+    opacity: 0.95;
+  }
+
+  10% {
+    opacity: 0.99;
+  }
+
+  15% {
+    opacity: 0.97;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 0.99;
+  }
+
+  90% {
+    opacity: 0.96;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.vago-pulse {
+  animation: vago-pulse 5s infinite;
+}
+
+/* Glitch Effect */
+.glitch-hover:hover {
+  text-shadow: 2px 0 var(--accent-color), -2px 0 #4a90e2;
+  transition: text-shadow 0.1s ease;
+}
+
+/* Pixel Border - Windows 95/Terminal Style Pop-out */
+.pixel-border {
+  position: relative;
+  background-color: var(--bg-color);
+  /* 1px Main Border */
+  border: 1px solid var(--text-secondary);
+  /* Hard Pixel Shadow for "blocked" look */
+  box-shadow:
+    2px 2px 0 0 var(--text-secondary);
+}
+
+/* Cyberpunk Scrollbar */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-secondary) var(--color-bg);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  background-color: var(--color-bg);
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: var(--color-bg);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--color-secondary);
+  border-radius: 0;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
