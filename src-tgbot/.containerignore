@@ -1,0 +1,4 @@
+# image 只需要預先編好的 binary 與 known_hosts
+*
+!container-bin
+!known_hosts
