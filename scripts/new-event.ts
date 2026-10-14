@@ -30,7 +30,7 @@ year: "${dateInput} ${timeInput.slice(0, 2)}:${timeInput.slice(2, 4)}"
 title: "新事件標題"
 dataRec: "${randomRec}%"
 ---
-在這裡輸入歷史事件的描述內容。可以使用 **Markdown** 語法。
+
 `;
 
   fs.writeFileSync(filePath, template, 'utf8');
